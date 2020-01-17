@@ -60,13 +60,14 @@ public class NotificationUtils extends ContextWrapper {
     public NotificationCompat.Builder getNotification_25(String title, String content, int icon, Intent intent) {
         //PendingIntent.FLAG_UPDATE_CURRENT 这个类型才能传值
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        return new NotificationCompat.Builder(context, id)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, id)
                 .setContentTitle(title)
                 .setContentText(content)
-                .setSmallIcon(icon)
                 .setAutoCancel(true)
                 .setVibrate(new long[]{0})
                 .setContentIntent(pendingIntent);
+        if (icon != 0) builder.setSmallIcon(icon);
+        return builder;
     }
 
     public static void sendNotification(@NonNull Context context, @NonNull String title, @NonNull String content, @NonNull int icon, @NonNull Intent intent) {
